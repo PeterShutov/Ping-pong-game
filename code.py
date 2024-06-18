@@ -58,5 +58,22 @@ while game:
         player_left.update_left()
         player_right.update_right()
 
+    sfera.rect.x += speed_x
+        sfera.rect.y += speed_y
+
+        if sfera.rect.y > 400 or sfera.rect.y < 0:
+            speed_y *= -1
+
+        if sprite.collide_rect(player_left, sfera) or sprite.collide_rect(player_right, sfera):
+            speed_x *= -1
+
+        if sfera.rect.x < 0:
+            finish = True
+            window.blit(loose_1, (250, 230))
+
+        if sfera.rect.x > 700:
+            finish = True
+            window.blit(loose_2, (250, 230))
+
     display.update()
 #Game cycle

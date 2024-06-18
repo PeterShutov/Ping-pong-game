@@ -11,3 +11,52 @@ class GameSprite(sprite.Sprite):
 
     def reset(self):
         window.blit(self.picture, (self.rect.x, self.rect.y))
+
+class Player(GameSprite):
+    def update_left(self):
+        keys = key.get_pressed()
+        if keys[K_w] and self.rect.y > 15:
+            self.rect.y -= self.speed
+
+        if keys[K_s] and self.rect.y < 400:
+            self.rect.y += self.speed  
+
+    def update_right(self):
+        keys = key.get_pressed()
+        if keys[K_o] and self.rect.y > 15:
+            self.rect.y -= self.speed
+
+        if keys[K_l] and self.rect.y < 400:
+            self.rect.y += self.speed
+#I wrote the player's class
+
+window = display.set_mode((700, 500))
+display.set_caption('Ping Pong')
+
+background = transform.scale(image.load('tennis-court-top-view-illustration-vector.jpg'), (700, 500))
+#Added a window and background
+
+player_left = Player('tennis_rocket.png', 30, 230, 90, 90, 10)
+player_right = Player('tennis_rocket.png', 600, 230, 90, 90, 10)
+sfera = GameSprite('Ball-PNG.png', 330, 230, 50, 50, 10)
+#Instances of the class
+
+game = True
+finish = False
+
+while game:
+    
+
+    for e in event.get():
+        if e.type == QUIT:
+            game = False
+    if finish != True:
+        window.blit(background, (0, 0))
+        player_left.reset()
+        player_right.reset()
+        sfera.reset()
+        player_left.update_left()
+        player_right.update_right()
+
+    display.update()
+#Game cycle
